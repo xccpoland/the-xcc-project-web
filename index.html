@@ -3,14 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <title>XCC — Basement Built Quality</title>
   <style>
     :root {
-      --bg: #000000;
-      --text: #e0e0e0;
-      --accent: #005700;
-      --accent-glow: rgba(0, 87, 0, 0.6);
-      --glow: 0 0 20px var(--accent-glow);
+      --bg: #0b0b0c;
+      --panel: #0f1113;
+      --text: #dfe6e9;
+      --muted: #9aa6a6;
+      --accent: #2ea44f;
+      --accent-weak: rgba(46,164,79,0.12);
+      --glass: rgba(255,255,255,0.02);
+      --radius: 8px;
     }
 
     * {
@@ -20,61 +24,66 @@
     }
 
     body {
-      background: var(--bg);
+      background: linear-gradient(180deg, #070708 0%, #0b0b0c 100%);
       color: var(--text);
-      font-family: 'Courier New', Courier, monospace;
+      font-family: Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, system-ui, -apple-system, sans-serif;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      background-image: 
-        radial-gradient(circle at 10% 20%, var(--accent-glow) 0%, transparent 25%),
-        radial-gradient(circle at 90% 80%, var(--accent-glow) 0%, transparent 30%);
-      background-attachment: fixed;
+      padding: 3rem;
     }
 
     .container {
-      max-width: 900px;
-      padding: 4rem 2rem;
+      max-width: 980px;
+      padding: 2.25rem 2rem;
       text-align: center;
       position: relative;
       z-index: 2;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 0.5rem;
     }
 
     h1 {
-      font-size: 5.5rem;
-      font-weight: 900;
-      letter-spacing: -0.1em;
-      color: var(--accent);
-      text-shadow: var(--glow), 0 0 40px var(--accent-glow);
-      margin-bottom: 0.5rem;
-      animation: pulse 6s infinite alternate;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin: 0;
     }
 
+    .logo { width: 56px; height: 56px; display:block; }
+
     .subtitle {
-      font-size: 1.8rem;
-      color: #00aa00;
-      margin-bottom: 2.5rem;
-      letter-spacing: 0.15em;
-      text-shadow: 0 0 15px rgba(0, 170, 0, 0.5);
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.3rem;
+      letter-spacing: 0.08em;
     }
 
     .tagline {
-      font-size: 2.2rem;
-      font-weight: bold;
+      font-size: 1.25rem;
+      font-weight: 600;
       color: var(--text);
-      margin: 2rem 0 3rem;
-      opacity: 0.9;
-      text-shadow: 0 0 10px rgba(255,255,255,0.2);
+      margin: 1rem 0 1.75rem;
+      opacity: 0.95;
     }
 
     .about {
-      font-size: 1.3rem;
-      line-height: 1.7;
-      max-width: 700px;
-      margin: 0 auto 3rem;
-      opacity: 0.85;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      max-width: 760px;
+      margin: 0 auto 1.5rem;
+      color: var(--muted);
     }
 
     .about strong {
@@ -86,60 +95,26 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
+      gap: 1rem;
+      margin-top: 1.5rem;
     }
 
     .link {
       color: var(--accent);
       text-decoration: none;
-      font-size: 1.4rem;
-      padding: 0.8rem 1.8rem;
-      border: 2px solid var(--accent);
-      border-radius: 0;
-      transition: all 0.4s;
-      text-shadow: 0 0 5px var(--accent-glow);
-      box-shadow: var(--glow);
+      font-size: 0.95rem;
+      padding: 0.6rem 1rem;
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 6px;
+      background: var(--glass);
+      transition: transform 160ms ease, background 160ms ease;
     }
 
-    .link:hover {
-      background: var(--accent);
-      color: #000;
-      box-shadow: 0 0 30px var(--accent-glow);
-      transform: translateY(-3px);
-    }
+    .link:hover { transform: translateY(-3px); background: var(--accent-weak); }
 
-    .glitch {
-      position: relative;
-    }
+    .glitch { position: relative; }
 
-    .glitch::before,
-    .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.8;
-    }
-
-    .glitch::before {
-      left: 2px;
-      text-shadow: -2px 0 #f00;
-      animation: glitch-1 3s infinite linear alternate-reverse;
-    }
-
-    .glitch::after {
-      left: -2px;
-      text-shadow: 2px 0 #0f0;
-      animation: glitch-2 2.5s infinite linear alternate-reverse;
-    }
-
-    @keyframes pulse {
-      0% { text-shadow: var(--glow); }
-      100% { text-shadow: 0 0 40px var(--accent-glow), 0 0 80px rgba(0,87,0,0.3); }
-    }
+    @keyframes pulse { 0% { opacity: 0.95 } 100% { opacity: 1 } }
 
     @keyframes glitch-1 {
       0% { clip: rect(0, 9999px, 0, 0); transform: translate(0); }
@@ -155,34 +130,129 @@
     }
 
     @media (max-width: 768px) {
-      h1 { font-size: 4rem; }
-      .subtitle { font-size: 1.4rem; }
-      .tagline { font-size: 1.8rem; }
+      .container { padding: 1.25rem; }
+      .brand { gap: 0.75rem; }
+      h1 { font-size: 1.05rem; }
+      .subtitle { font-size: 0.9rem; }
+      .tagline { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
 
+  <canvas id="bg-canvas" aria-hidden="true" style="position:fixed;inset:0;z-index:0"></canvas>
+
+  <div class="bg-toggle" style="position:fixed;right:12px;top:12px;z-index:3;display:flex;gap:8px">
+    <button id="matrixBtn" style="padding:6px 10px;border-radius:6px;border:0;background:rgba(0,0,0,0.45);color:var(--text);cursor:pointer">Matrix</button>
+    <button id="snowBtn" style="padding:6px 10px;border-radius:6px;border:0;background:rgba(0,0,0,0.12);color:var(--muted);cursor:pointer">Snow</button>
+  </div>
+
   <div class="container">
-    <h1 class="glitch" data-text="XCC">XCC</h1>
-    <div class="subtitle">DarkMagic Operating System</div>
-    
-    <div class="tagline">BBQ — Basement Built Quality</div>
+    <div class="brand">
+      <img src="assets/logo.svg" alt="XCC" class="logo">
+      <div style="text-align:left">
+        <h1 class="glitch" data-text="XCC">XCC</h1>
+        <div class="subtitle">DarkMagic Operating System</div>
+      </div>
+    </div>
+
+    <div class="tagline">Basement Built Quality — Small, focused, curious</div>
 
     <div class="about">
-      XCC. No acronym. Just <strong>XCC</strong>.<br><br>
-      We build software that shouldn't exist — or maybe it always did.<br>
-      Current core: <strong>DMOS</strong> (DarkMagic Operating System), Arch-based, raw, unfiltered.<br><br>
-      Sometimes cheats. Sometimes websites. Sometimes operating systems.<br>
-      Always from the basement. Always accessible... until it's <span style="color:#ff0044; text-shadow:0 0 10px #ff0044;">404 — page not found</span>.
+      <strong>XCC</strong> — small experimental tools and front-ends. Current focus is DMOS (DarkMagic Operating System).
+      We prefer pragmatic, readable tools over flashy presentation. This page links project hubs and community channels.
     </div>
 
     <div class="links">
-      <a href="https://discord.gg/tySAqVRQ4K" class="link" target="_blank">Discord</a>
-      <a href="https://youtube.com/@iamquery3" class="link" target="_blank">YouTube</a>
-      <a href="https://github.com/xccpoland/" class="link" target="_blank">GitHub</a>
+      <a href="https://discord.gg/tySAqVRQ4K" class="link" target="_blank" rel="noopener">Discord</a>
+      <a href="https://youtube.com/@iamquery3" class="link" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://github.com/xccpoland/" class="link" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
+
+  <script>
+    (function(){
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+      let mode = 'matrix';
+
+      window.addEventListener('resize', ()=>{ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; init(); });
+
+      // Matrix variables
+      let cols, drops;
+      const fontSize = 16;
+
+      // Snow variables
+      let snowflakes = [];
+
+      function initMatrix(){
+        cols = Math.floor(w / fontSize);
+        drops = new Array(cols).fill(0).map(()=>Math.floor(Math.random()*h));
+      }
+
+      function initSnow(){
+        snowflakes = [];
+        const count = Math.floor(w/10);
+        for(let i=0;i<count;i++) snowflakes.push({x:Math.random()*w, y:Math.random()*h, r:1+Math.random()*3, d:Math.random()*1});
+      }
+
+      function init(){
+        if(mode==='matrix') initMatrix();
+        else initSnow();
+      }
+
+      function drawMatrix(){
+        ctx.fillStyle = 'rgba(5,10,8,0.15)';
+        ctx.fillRect(0,0,w,h);
+        ctx.fillStyle = '#0aff65';
+        ctx.font = fontSize+'px monospace';
+        for(let i=0;i<cols;i++){
+          const text = String.fromCharCode(0x30A0 + Math.random()*96);
+          ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+          if(drops[i]*fontSize > h && Math.random()>0.975) drops[i]=0;
+          drops[i]++;
+        }
+      }
+
+      function drawSnow(){
+        ctx.clearRect(0,0,w,h);
+        ctx.fillStyle = 'rgba(8,10,12,0.2)';
+        ctx.fillRect(0,0,w,h);
+        ctx.fillStyle = 'rgba(255,255,255,0.9)';
+        ctx.beginPath();
+        for(let i=0;i<snowflakes.length;i++){
+          const f = snowflakes[i];
+          ctx.moveTo(f.x, f.y);
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI*2, true);
+        }
+        ctx.fill();
+        updateSnow();
+      }
+
+      function updateSnow(){
+        for(let i=0;i<snowflakes.length;i++){
+          const f = snowflakes[i];
+          f.y += Math.pow(f.d, 2) + 0.5;
+          f.x += Math.sin(f.d + i) * 0.5;
+          if(f.y>h){ f.y = -10; f.x = Math.random()*w; }
+        }
+      }
+
+      function loop(){
+        if(mode==='matrix') drawMatrix(); else drawSnow();
+        requestAnimationFrame(loop);
+      }
+
+      document.getElementById('matrixBtn').addEventListener('click', ()=>{ mode='matrix'; document.getElementById('matrixBtn').style.background='rgba(0,0,0,0.45)'; document.getElementById('snowBtn').style.background='rgba(0,0,0,0.12)'; init(); });
+      document.getElementById('snowBtn').addEventListener('click', ()=>{ mode='snow'; document.getElementById('snowBtn').style.background='rgba(0,0,0,0.45)'; document.getElementById('matrixBtn').style.background='rgba(0,0,0,0.12)'; init(); });
+
+      // start
+      init();
+      loop();
+    })();
+  </script>
 
 </body>
 </html>
