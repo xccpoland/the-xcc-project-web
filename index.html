@@ -187,14 +187,30 @@
       // Snow variables
       let snowflakes = [];
 
+      // Mouse / speed tracking
+      let lastMouseX = w/2, lastMouseY = h/2, lastMouseTime = performance.now();
+      let mouseSpeed = 0, speedFactor = 0, wind = 0;
+
+      window.addEventListener('mousemove', (e)=>{
+        const now = performance.now();
+        const dx = e.clientX - lastMouseX;
+        const dy = e.clientY - lastMouseY;
+        const dt = Math.max(1, now - lastMouseTime);
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        mouseSpeed = dist / dt * 60; // normalized-ish per frame
+        // wind based on horizontal mouse position relative to center
+        wind = (e.clientX - w/2) / w;
+        lastMouseX = e.clientX; lastMouseY = e.clientY; lastMouseTime = now;
+      });
+
       function initMatrix(){
-        cols = Math.floor(w / fontSize);
+        cols = Math.floor(w / fontSize) || 1;
         drops = new Array(cols).fill(0).map(()=>Math.floor(Math.random()*h));
       }
 
       function initSnow(){
         snowflakes = [];
-        const count = Math.floor(w/10);
+        const count = Math.max(30, Math.floor(w/12));
         for(let i=0;i<count;i++) snowflakes.push({x:Math.random()*w, y:Math.random()*h, r:1+Math.random()*3, d:Math.random()*1});
       }
 
@@ -203,45 +219,54 @@
         else initSnow();
       }
 
-      function drawMatrix(){
-        ctx.fillStyle = 'rgba(5,10,8,0.15)';
+      let lastFrame = performance.now();
+      function drawMatrix(dt){
+        // smooth speedFactor
+        speedFactor += (Math.min(mouseSpeed/4, 3) - speedFactor) * 0.08;
+
+        ctx.fillStyle = 'rgba(5,10,8,0.12)';
         ctx.fillRect(0,0,w,h);
         ctx.fillStyle = '#0aff65';
         ctx.font = fontSize+'px monospace';
         for(let i=0;i<cols;i++){
           const text = String.fromCharCode(0x30A0 + Math.random()*96);
-          ctx.fillText(text, i*fontSize, drops[i]*fontSize);
-          if(drops[i]*fontSize > h && Math.random()>0.975) drops[i]=0;
-          drops[i]++;
+          const x = i*fontSize;
+          const y = drops[i]*fontSize;
+          // apply slight horizontal offset based on wind
+          ctx.fillText(text, x + wind*8, y);
+          // speed of drop depends on speedFactor
+          drops[i] += 0.5 + 0.6*speedFactor;
+          if(drops[i]*fontSize > h && Math.random()>0.975 - Math.min(speedFactor*0.01,0.03)) drops[i]=0;
         }
       }
 
-      function drawSnow(){
+      function drawSnow(dt){
+        // smooth speedFactor
+        speedFactor += (Math.min(mouseSpeed/3, 4) - speedFactor) * 0.06;
+
         ctx.clearRect(0,0,w,h);
-        ctx.fillStyle = 'rgba(8,10,12,0.2)';
+        ctx.fillStyle = 'rgba(8,10,12,0.14)';
         ctx.fillRect(0,0,w,h);
         ctx.fillStyle = 'rgba(255,255,255,0.9)';
         ctx.beginPath();
         for(let i=0;i<snowflakes.length;i++){
           const f = snowflakes[i];
+          const drift = wind * 1.5 * (1 + speedFactor*0.3);
           ctx.moveTo(f.x, f.y);
           ctx.arc(f.x, f.y, f.r, 0, Math.PI*2, true);
-        }
-        ctx.fill();
-        updateSnow();
-      }
-
-      function updateSnow(){
-        for(let i=0;i<snowflakes.length;i++){
-          const f = snowflakes[i];
-          f.y += Math.pow(f.d, 2) + 0.5;
-          f.x += Math.sin(f.d + i) * 0.5;
+          f.y += Math.pow(f.d, 2) + 0.5 + speedFactor*0.6;
+          f.x += Math.sin(f.d + i) * (0.5 + speedFactor*0.3) + drift;
           if(f.y>h){ f.y = -10; f.x = Math.random()*w; }
         }
+        ctx.fill();
       }
 
-      function loop(){
-        if(mode==='matrix') drawMatrix(); else drawSnow();
+      function loop(now){
+        const dt = (now - lastFrame) || 16;
+        lastFrame = now;
+        // decay mouseSpeed slowly so when mouse stops it eases back
+        mouseSpeed *= 0.92;
+        if(mode==='matrix') drawMatrix(dt); else drawSnow(dt);
         requestAnimationFrame(loop);
       }
 
@@ -250,7 +275,7 @@
 
       // start
       init();
-      loop();
+      requestAnimationFrame(loop);
     })();
   </script>
 
