@@ -18,13 +18,11 @@
       --glass: rgba(255,255,255,0.02);
       --radius: 8px;
     }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       background: linear-gradient(180deg, #070708 0%, #0b0b0c 100%);
       color: var(--text);
@@ -35,7 +33,6 @@
       justify-content: center;
       padding: 3rem;
     }
-
     .container {
       max-width: 980px;
       padding: 2.25rem 2rem;
@@ -46,7 +43,6 @@
       border-radius: var(--radius);
       box-shadow: 0 6px 30px rgba(2,6,23,0.6);
     }
-
     .brand {
       display: flex;
       align-items: center;
@@ -54,7 +50,6 @@
       justify-content: center;
       margin-bottom: 0.5rem;
     }
-
     h1 {
       font-size: 2.1rem;
       font-weight: 700;
@@ -62,16 +57,13 @@
       letter-spacing: -0.02em;
       margin: 0;
     }
-
     .logo { width: 56px; height: 56px; display:block; }
-
     .subtitle {
       font-size: 1rem;
       color: var(--muted);
       margin-bottom: 1.3rem;
       letter-spacing: 0.08em;
     }
-
     .tagline {
       font-size: 1.25rem;
       font-weight: 600;
@@ -79,7 +71,6 @@
       margin: 1rem 0 1.75rem;
       opacity: 0.95;
     }
-
     .about {
       font-size: 0.98rem;
       line-height: 1.6;
@@ -87,12 +78,10 @@
       margin: 0 auto 1.5rem;
       color: var(--muted);
     }
-
     .about strong {
       color: var(--accent);
       text-shadow: 0 0 8px var(--accent-glow);
     }
-
     .links {
       display: flex;
       flex-wrap: wrap;
@@ -100,7 +89,6 @@
       gap: 1rem;
       margin-top: 1.5rem;
     }
-
     .link {
       color: var(--accent);
       text-decoration: none;
@@ -111,39 +99,39 @@
       background: var(--glass);
       transition: transform 160ms ease, background 160ms ease;
     }
-
     .link:hover { transform: translateY(-3px); background: var(--accent-weak); }
-
     .glitch { position: relative; }
-
     @keyframes pulse { 0% { opacity: 0.95 } 100% { opacity: 1 } }
-
     @keyframes glitch-1 {
       0% { clip: rect(0, 9999px, 0, 0); transform: translate(0); }
       5% { clip: rect(20px, 9999px, 40px, 0); transform: translate(-5px, 2px); }
       10% { clip: rect(50px, 9999px, 80px, 0); transform: translate(5px, -2px); }
-      /* ... more random-ish for effect, but keeping light */
     }
-
     @keyframes glitch-2 {
       0% { clip: rect(0, 9999px, 0, 0); transform: translate(0); }
       5% { clip: rect(30px, 9999px, 60px, 0); transform: translate(3px, -3px); }
       10% { clip: rect(10px, 9999px, 30px, 0); transform: translate(-3px, 3px); }
     }
-
+    nav {
+      margin: 1.5rem 0 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
     @media (max-width: 768px) {
       .container { padding: 1.25rem; }
       .brand { gap: 0.75rem; }
       h1 { font-size: 1.05rem; }
       .subtitle { font-size: 0.9rem; }
       .tagline { font-size: 1rem; }
+      nav { gap: 0.75rem; }
+      .link { padding: 0.5rem 0.9rem; font-size: 0.9rem; }
     }
   </style>
 </head>
 <body>
-
   <canvas id="bg-canvas" aria-hidden="true" style="position:fixed;inset:0;z-index:0"></canvas>
-
   <div class="bg-toggle" style="position:fixed;right:12px;top:12px;z-index:3;display:flex;gap:8px">
     <button id="matrixBtn" style="padding:6px 10px;border-radius:6px;border:0;background:rgba(0,0,0,0.45);color:var(--text);cursor:pointer">Matrix</button>
     <button id="snowBtn" style="padding:6px 10px;border-radius:6px;border:0;background:rgba(0,0,0,0.12);color:var(--muted);cursor:pointer">Snow</button>
@@ -157,14 +145,21 @@
         <div class="subtitle">DarkMagic Operating System</div>
       </div>
     </div>
-
     <div class="tagline">Basement Built Quality — Small, focused, curious</div>
+
+    <!-- NAVIGATION BUTTONS / LINKS -->
+    <nav>
+      <a href="/" class="link">Home</a>
+      <a href="/xcc.html" class="link">What is XCC?</a>
+      <a href="/dmos.html" class="link">DMOS Explained</a>
+      <a href="/install.html" class="link">Install DMOS</a>
+      <a href="/why.html" class="link">Why This + Ads</a>
+    </nav>
 
     <div class="about">
       <strong>XCC</strong> fire bullshit, Current focus is DMOS (DarkMagic Operating System).
       We prefer pragmatic, readable tools over flashy presentation? nah, never. This page links project hubs and community channels.
     </div>
-
     <div class="links">
       <a href="https://discord.gg/tySAqVRQ4K" class="link" target="_blank" rel="noopener">Discord</a>
       <a href="https://youtube.com/@iamquery3" class="link" target="_blank" rel="noopener">YouTube</a>
@@ -179,53 +174,41 @@
       let w = canvas.width = window.innerWidth;
       let h = canvas.height = window.innerHeight;
       let mode = 'matrix';
-
       window.addEventListener('resize', ()=>{ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; init(); });
-
       // Matrix variables
       let cols, drops;
       const fontSize = 16;
-
       // Snow variables
       let snowflakes = [];
-
       // Mouse / speed tracking
       let lastMouseX = w/2, lastMouseY = h/2, lastMouseTime = performance.now();
       let mouseSpeed = 0, speedFactor = 0, wind = 0;
-
       window.addEventListener('mousemove', (e)=>{
         const now = performance.now();
         const dx = e.clientX - lastMouseX;
         const dy = e.clientY - lastMouseY;
         const dt = Math.max(1, now - lastMouseTime);
         const dist = Math.sqrt(dx*dx + dy*dy);
-        mouseSpeed = dist / dt * 60; // normalized-ish per frame
-        // wind based on horizontal mouse position relative to center
+        mouseSpeed = dist / dt * 60;
         wind = (e.clientX - w/2) / w;
         lastMouseX = e.clientX; lastMouseY = e.clientY; lastMouseTime = now;
       });
-
       function initMatrix(){
         cols = Math.floor(w / fontSize) || 1;
         drops = new Array(cols).fill(0).map(()=>Math.floor(Math.random()*h));
       }
-
       function initSnow(){
         snowflakes = [];
         const count = Math.max(30, Math.floor(w/12));
         for(let i=0;i<count;i++) snowflakes.push({x:Math.random()*w, y:Math.random()*h, r:1+Math.random()*3, d:Math.random()*1});
       }
-
       function init(){
         if(mode==='matrix') initMatrix();
         else initSnow();
       }
-
       let lastFrame = performance.now();
       function drawMatrix(dt){
-        // smooth speedFactor
         speedFactor += (Math.min(mouseSpeed/4, 3) - speedFactor) * 0.08;
-
         ctx.fillStyle = 'rgba(5,10,8,0.12)';
         ctx.fillRect(0,0,w,h);
         ctx.fillStyle = '#0aff65';
@@ -234,18 +217,13 @@
           const text = String.fromCharCode(0x30A0 + Math.random()*96);
           const x = i*fontSize;
           const y = drops[i]*fontSize;
-          // apply slight horizontal offset based on wind
           ctx.fillText(text, x + wind*8, y);
-          // speed of drop depends on speedFactor
           drops[i] += 0.5 + 0.6*speedFactor;
           if(drops[i]*fontSize > h && Math.random()>0.975 - Math.min(speedFactor*0.01,0.03)) drops[i]=0;
         }
       }
-
       function drawSnow(dt){
-        // smooth speedFactor
         speedFactor += (Math.min(mouseSpeed/3, 4) - speedFactor) * 0.06;
-
         ctx.clearRect(0,0,w,h);
         ctx.fillStyle = 'rgba(8,10,12,0.14)';
         ctx.fillRect(0,0,w,h);
@@ -262,24 +240,28 @@
         }
         ctx.fill();
       }
-
       function loop(now){
         const dt = (now - lastFrame) || 16;
         lastFrame = now;
-        // decay mouseSpeed slowly so when mouse stops it eases back
         mouseSpeed *= 0.92;
         if(mode==='matrix') drawMatrix(dt); else drawSnow(dt);
         requestAnimationFrame(loop);
       }
-
-      document.getElementById('matrixBtn').addEventListener('click', ()=>{ mode='matrix'; document.getElementById('matrixBtn').style.background='rgba(0,0,0,0.45)'; document.getElementById('snowBtn').style.background='rgba(0,0,0,0.12)'; init(); });
-      document.getElementById('snowBtn').addEventListener('click', ()=>{ mode='snow'; document.getElementById('snowBtn').style.background='rgba(0,0,0,0.45)'; document.getElementById('matrixBtn').style.background='rgba(0,0,0,0.12)'; init(); });
-
-      // start
+      document.getElementById('matrixBtn').addEventListener('click', ()=>{ 
+        mode='matrix'; 
+        document.getElementById('matrixBtn').style.background='rgba(0,0,0,0.45)'; 
+        document.getElementById('snowBtn').style.background='rgba(0,0,0,0.12)'; 
+        init(); 
+      });
+      document.getElementById('snowBtn').addEventListener('click', ()=>{ 
+        mode='snow'; 
+        document.getElementById('snowBtn').style.background='rgba(0,0,0,0.45)'; 
+        document.getElementById('matrixBtn').style.background='rgba(0,0,0,0.12)'; 
+        init(); 
+      });
       init();
       requestAnimationFrame(loop);
     })();
   </script>
-
 </body>
 </html>
