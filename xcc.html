@@ -1,13 +1,265 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <title>ERROR 001</title>
-      <meta charset="utf-8">
-    </head>
-    <body>
-      <b>ERROR</b><br>
-      error code:<b>001-work in progress</b><br>
-      will be finished soon!!
-    </body>
-  </html>
-  
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <title>What is XCC?  XCC the Basement Built Quality shyt</title>  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8881076458883839"
+     crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0b0b0c;
+      --panel: #0f1113;
+      --text: #dfe6e9;
+      --muted: #9aa6a6;
+      --accent: #2ea44f;
+      --accent-weak: rgba(46,164,79,0.12);
+      --glass: rgba(255,255,255,0.02);
+      --radius: 8px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(180deg, #070708 0%, #0b0b0c 100%);
+      color: var(--text);
+      font-family: Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+    }
+    .container {
+      max-width: 980px;
+      padding: 2.25rem 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .logo { width: 56px; height: 56px; display:block; }
+    .subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.3rem;
+      letter-spacing: 0.08em;
+    }
+    .tagline {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1rem 0 1.75rem;
+      opacity: 0.95;
+    }
+    .about {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      max-width: 760px;
+      margin: 0 auto 1.5rem;
+      color: var(--muted);
+    }
+    .about strong {
+      color: var(--accent);
+    }
+    .link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 0.6rem 1rem;
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 6px;
+      background: var(--glass);
+      transition: transform 160ms ease, background 160ms ease;
+    }
+    .link:hover { transform: translateY(-3px); background: var(--accent-weak); }
+    .glitch { position: relative; }
+    nav {
+      margin: 1.5rem 0 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .back-home {
+      margin-top: 3rem;
+      font-size: 1rem;
+    }
+    @media (max-width: 768px) {
+      .container { padding: 1.25rem; }
+      .brand { gap: 0.75rem; }
+      h1 { font-size: 1.6rem; }
+      .subtitle { font-size: 0.9rem; }
+      .tagline { font-size: 1.1rem; }
+      nav { gap: 0.8rem; }
+      .link { padding: 0.5rem 0.9rem; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas" aria-hidden="true" style="position:fixed;inset:0;z-index:0"></canvas>
+  <div class="bg-toggle" style="position:fixed;right:12px;top:12px;z-index:3;display:flex;gap:8px">
+    <button id="matrixBtn" style="padding:6px 10px;border-radius:6px;border:0;background:rgba(0,0,0,0.45);color:var(--text);cursor:pointer">Matrix</button>
+    <button id="snowBtn" style="padding:6px 10px;border-radius:6px;border:0;background:rgba(0,0,0,0.12);color:var(--muted);cursor:pointer">Snow</button>
+  </div>
+
+  <div class="container">
+    <div class="brand">
+      <img src="assets/logo.png" alt="XCC" class="logo">
+      <div style="text-align:left">
+        <h1 class="glitch" data-text="XCC">XCC</h1>  <!-- ← optional: change text if you want different glitch per page -->
+        <div class="subtitle">DarkMagic Operating System</div>
+      </div>
+    </div>
+
+    <!-- Navigation - same as homepage -->
+    <nav>
+      <a href="/" class="link">Home</a>
+      <a href="/xcc.html" class="link">What is XCC?</a>
+      <a href="/dmos.html" class="link">DMOS Explained</a>
+      <a href="/install.html" class="link">Install DMOS</a>
+      <a href="/why.html" class="link">Why This + Ads</a>
+    </nav>
+
+    <!-- Page-specific title / heading -->
+    <div class="tagline">What is XCC?</div>  <!-- ← change this to match the page, e.g. "DMOS Explained", "How to Install DMOS", etc. -->
+
+    <!-- Main content area - fill this in for each page -->
+    <div class="about" style="text-align: left; max-width: 820px; margin: 2rem auto;">
+      <p>XCC was made cause of my old artist name - NT@XCC, i wanted xcc because i could have my email as nt@xcc.com, but com websites are too expensive, so thats why i have xccdev.qzz.io</p>
+      <p>its simple reallym also i lowkey just wanted something i could develop for, and xcc sounds so proffesional sometimes.</p>
+      <ul>
+        <li>1. i like minimalistic stuffs sometimes, but i also hate it!</li>
+        <li>2. XCC is also trying to get a partnership/collaboration with oneplus! (i love you oneplus)</li>
+      </ul>
+      <pre style="background:rgba(0,0,0,0.4); padding:1rem; border-radius:6px; overflow-x:auto; color:#0aff65; font-family:monospace;">
+git clone https://github.com/xccpoland/the-xcc-project-web
+cd repo
+make
+      </pre>
+      <p>more content partially for adsense aproval lol</p>
+    </div>
+
+    <div class="back-home">
+      <a href="/" class="link">← Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+      let mode = 'matrix';
+      window.addEventListener('resize', ()=>{ 
+        w = canvas.width = window.innerWidth; 
+        h = canvas.height = window.innerHeight; 
+        init(); 
+      });
+      let cols, drops;
+      const fontSize = 16;
+      let snowflakes = [];
+      let lastMouseX = w/2, lastMouseY = h/2, lastMouseTime = performance.now();
+      let mouseSpeed = 0, speedFactor = 0, wind = 0;
+      window.addEventListener('mousemove', (e)=>{
+        const now = performance.now();
+        const dx = e.clientX - lastMouseX;
+        const dy = e.clientY - lastMouseY;
+        const dt = Math.max(1, now - lastMouseTime);
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        mouseSpeed = dist / dt * 60;
+        wind = (e.clientX - w/2) / w;
+        lastMouseX = e.clientX; lastMouseY = e.clientY; lastMouseTime = now;
+      });
+      function initMatrix(){
+        cols = Math.floor(w / fontSize) || 1;
+        drops = new Array(cols).fill(0).map(()=>Math.floor(Math.random()*h));
+      }
+      function initSnow(){
+        snowflakes = [];
+        const count = Math.max(30, Math.floor(w/12));
+        for(let i=0;i<count;i++) snowflakes.push({x:Math.random()*w, y:Math.random()*h, r:1+Math.random()*3, d:Math.random()*1});
+      }
+      function init(){
+        if(mode==='matrix') initMatrix();
+        else initSnow();
+      }
+      let lastFrame = performance.now();
+      function drawMatrix(dt){
+        speedFactor += (Math.min(mouseSpeed/4, 3) - speedFactor) * 0.08;
+        ctx.fillStyle = 'rgba(5,10,8,0.12)';
+        ctx.fillRect(0,0,w,h);
+        ctx.fillStyle = '#0aff65';
+        ctx.font = fontSize+'px monospace';
+        for(let i=0;i<cols;i++){
+          const text = String.fromCharCode(0x30A0 + Math.random()*96);
+          const x = i*fontSize;
+          const y = drops[i]*fontSize;
+          ctx.fillText(text, x + wind*8, y);
+          drops[i] += 0.5 + 0.6*speedFactor;
+          if(drops[i]*fontSize > h && Math.random()>0.975 - Math.min(speedFactor*0.01,0.03)) drops[i]=0;
+        }
+      }
+      function drawSnow(dt){
+        speedFactor += (Math.min(mouseSpeed/3, 4) - speedFactor) * 0.06;
+        ctx.clearRect(0,0,w,h);
+        ctx.fillStyle = 'rgba(8,10,12,0.14)';
+        ctx.fillRect(0,0,w,h);
+        ctx.fillStyle = 'rgba(255,255,255,0.9)';
+        ctx.beginPath();
+        for(let i=0;i<snowflakes.length;i++){
+          const f = snowflakes[i];
+          const drift = wind * 1.5 * (1 + speedFactor*0.3);
+          ctx.moveTo(f.x, f.y);
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI*2, true);
+          f.y += Math.pow(f.d, 2) + 0.5 + speedFactor*0.6;
+          f.x += Math.sin(f.d + i) * (0.5 + speedFactor*0.3) + drift;
+          if(f.y>h){ f.y = -10; f.x = Math.random()*w; }
+        }
+        ctx.fill();
+      }
+      function loop(now){
+        const dt = (now - lastFrame) || 16;
+        lastFrame = now;
+        mouseSpeed *= 0.92;
+        if(mode==='matrix') drawMatrix(dt); else drawSnow(dt);
+        requestAnimationFrame(loop);
+      }
+      document.getElementById('matrixBtn').addEventListener('click', ()=>{ 
+        mode='matrix'; 
+        document.getElementById('matrixBtn').style.background='rgba(0,0,0,0.45)'; 
+        document.getElementById('snowBtn').style.background='rgba(0,0,0,0.12)'; 
+        init(); 
+      });
+      document.getElementById('snowBtn').addEventListener('click', ()=>{ 
+        mode='snow'; 
+        document.getElementById('snowBtn').style.background='rgba(0,0,0,0.45)'; 
+        document.getElementById('matrixBtn').style.background='rgba(0,0,0,0.12)'; 
+        init(); 
+      });
+      init();
+      requestAnimationFrame(loop);
+    })();
+  </script>
+</body>
+</html>
